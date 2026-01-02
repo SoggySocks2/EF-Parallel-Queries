@@ -16,6 +16,7 @@ public class ParallelCustomerQuery(IDbContextFactory<CoreDbContext> contextFacto
     {
         var qry = await GetCustomerByMaxCreatedAsync(maxCreated);
         return qry
+            .AsNoTracking()
             .Where(c => c.Person.Gender.Equals(gender));
     }
 
@@ -24,6 +25,7 @@ public class ParallelCustomerQuery(IDbContextFactory<CoreDbContext> contextFacto
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
         var qry = await GetCustomerByMaxCreatedAsync(maxCreated);
         return qry
+            .AsNoTracking()
             .Where(c => c.Dob.HasValue && c.Dob.Value >= today.AddYears(0 - maxAge))
             .Where(c => c.Dob.HasValue && c.Dob.Value <= today.AddYears(0 - minAge));
     }

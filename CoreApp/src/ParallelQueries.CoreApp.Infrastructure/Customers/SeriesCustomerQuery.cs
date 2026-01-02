@@ -6,9 +6,8 @@ public class SeriesCustomerQuery(CoreDbContext coreDbContext) : ISeriesCustomerQ
 {
     public async Task<IQueryable<Customer>> GetCustomerByMaxCreatedAsync(DateTime maxCreated)
     {
-        await Task.Delay(1);
-        return coreDbContext.Customers
-            .Where(c => c.Created <= maxCreated);
+        return await Task.Run(() => coreDbContext.Customers
+            .Where(c => c.Created <= maxCreated));
     }
 
     public async Task<IQueryable<Customer>> GetCustomerByMaxCreatedAndGenderAsync(DateTime maxCreated, string gender)
