@@ -13,6 +13,8 @@ public static class CoreAppInfrastructureServices
             options.UseSqlServer(CoreAppInfrastructureConfig.Instance.ConnectionString);
         });
 
-        await CoreDbInitializer.Seed();
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var coreDbInitializer = new CoreDbInitializer(scope.ServiceProvider.GetRequiredService<CoreDbContext>());
+        await coreDbInitializer.Seed();
     }
 }

@@ -3,13 +3,11 @@ using ParallelQueries.CoreApp.Infrastructure.Seeds;
 
 namespace ParallelQueries.CoreApp.Infrastructure;
 
-public static class CoreDbInitializer
+public class CoreDbInitializer(CoreDbContext coreDbContext)
 {
-    public static async Task Seed()
+    public async Task Seed()
     {
-        var coreDbContext = CoreDbContextBuilder.Build();
         await coreDbContext.Database.EnsureCreatedAsync();
-
         await SeedCustomers(coreDbContext);
     }
     private static async Task SeedCustomers(CoreDbContext coreDbContext)
