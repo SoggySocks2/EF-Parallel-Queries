@@ -1,0 +1,6 @@
+@ParallelQueries.Api_HostAddress = http://localhost:5136
+
+GET {{ParallelQueries.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
